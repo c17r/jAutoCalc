@@ -1,3 +1,8 @@
+/*
+	jAutoCalc.js
+	Copyright (c) 2010 3StorySoftware, LLC
+	see LICENSE for details
+*/
 (function($){
 	$.fn.jAutoCalc = function(method) {
 		var opts = {};
