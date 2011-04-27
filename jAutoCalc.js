@@ -9,21 +9,23 @@
 		
 		var funcs = {
 			'sum'	: { rgx: 'sum\\({([^}]+)}\\)', exec: function(field, ctx, numberFormat) {
-																				m = 0;
-																				$(':input[name="' + field + '"]', ctx).each(function() {
-																					n = numCleanse($(this).val(), numberFormat) * 1;
-																					m += n;
-																				});
-																				return m;
-																			} },
+															m = 0;
+															$(':input[name="' + field + '"]', ctx).each(function() {
+																n = numCleanse($(this).val(), numberFormat) * 1;
+																m += n;
+															});
+															return m;
+														} 
+			},
 			'avg'	: { rgx: 'avg\\({([^}]+)}\\)', exec: function(field, ctx, numberFormat) {
-																				m = 0;
-																				c = $(':input[name="' + field + '"]', ctx).each(function() {
-																					n = numCleanse($(this).val(), numberFormat) * 1;
-																					m += n;
-																				}).length;
-																				return m/c;
-																			} },
+															m = 0;
+															c = $(':input[name="' + field + '"]', ctx).each(function() {
+																n = numCleanse($(this).val(), numberFormat) * 1;
+																m += n;
+															}).length;
+															return m/c;
+														} 
+			},
 			'min'	: { rgx: 'min\\({([^}]+)}\\)', exec: function(field, ctx, numberFormat) { return Math.min.apply(this, $(':input[name="' + field + '"]', ctx).map(function(i,e) { return numCleanse($(e).val(), numberFormat) }).get()); } },
 			'max'	: { rgx: 'max\\({([^}]+)}\\)', exec: function(field, ctx, numberFormat) { return Math.max.apply(this, $(':input[name="' + field + '"]', ctx).map(function(i,e) { return numCleanse($(e).val(), numberFormat) }).get()); } },
 			'count'	: { rgx: 'count\\({([^}]+)}\\)', exec: function(field, ctx) { return $(':input[name="' + field + '"]', ctx).length } }
