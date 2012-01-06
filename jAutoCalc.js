@@ -321,6 +321,9 @@
 						eq = $this.attr(opts.attribute);
 						fields = findFields(eq);
 						if (fields.length == 0) return;
+						for(i = 0; i < fields.length; i++)
+							if ($(':input[name="' + fields[i] + '"]', $ctx).length == 0)
+								return;
 						field = '';
 						name = $this.attr('name');
 						fireEvents = 'focus.jautocalc change.jautocalc blur.jautocalc';
