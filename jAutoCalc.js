@@ -10,7 +10,7 @@
 		var funcs = {
 			'sum'	: { rgx: 'sum\\({([^}]+)}\\)', exec: function(field, ctx, numberFormat) {
 															m = 0;
-															$(':input[name="' + field + '"]', ctx).each(function() {
+															$(getFieldSelector(field), ctx).each(function() {
 																n = numCleanse($(this).val(), numberFormat) * 1;
 																m += n;
 															});
@@ -19,16 +19,17 @@
 			},
 			'avg'	: { rgx: 'avg\\({([^}]+)}\\)', exec: function(field, ctx, numberFormat) {
 															m = 0;
-															c = $(':input[name="' + field + '"]', ctx).each(function() {
+															c = $(getFieldSelector(field), ctx).each(function() {
 																n = numCleanse($(this).val(), numberFormat) * 1;
 																m += n;
 															}).length;
 															return m/c;
 														} 
 			},
-			'min'	: { rgx: 'min\\({([^}]+)}\\)', exec: function(field, ctx, numberFormat) { return Math.min.apply(this, $(':input[name="' + field + '"]', ctx).map(function(i,e) { return numCleanse($(e).val(), numberFormat) }).get()); } },
-			'max'	: { rgx: 'max\\({([^}]+)}\\)', exec: function(field, ctx, numberFormat) { return Math.max.apply(this, $(':input[name="' + field + '"]', ctx).map(function(i,e) { return numCleanse($(e).val(), numberFormat) }).get()); } },
-			'count'	: { rgx: 'count\\({([^}]+)}\\)', exec: function(field, ctx) { return $(':input[name="' + field + '"]', ctx).length } }
+			'min'	: { rgx: 'min\\({([^}]+)}\\)', exec: function(field, ctx, numberFormat) { return Math.min.apply(this, $(getFieldSelector(field), ctx).map(function(i,e) { return numCleanse($(e).val(), numberFormat) }).get()); } },
+			'max'	: { rgx: 'max\\({([^}]+)}\\)', exec: function(field, ctx, numberFormat) { return Math.max.apply(this, $(getFieldSelector(field), ctx).map(function(i,e) { return numCleanse($(e).val(), numberFormat) }).get()); } },
+			'count'	: { rgx: 'count\\({([^}]+)}\\)', exec: function(field, ctx) { return $(getFieldSelector(field), ctx).length } },
+			'countNotEmpty'	: { rgx: 'countNotEmpty\\({([^}]+)}\\)', exec: function(field, ctx) {return $.grep($(getFieldSelector(field),ctx),function(n){return $(n).val();}).length;} }
 		};
 		
 		/*
@@ -43,6 +44,13 @@
 				
 			return fields;
 		};
+
+      var getFieldSelector = function(field){
+         if (/^[a-zA-Z].*/.test(field)) {
+            return ':input[name="' + field + '"]';
+         }
+         return field;
+      };
 		
 		/*
 			Takes the value from a field and strips it down to a numeric value, formatted with a period for the decimal.  If an object is passed in,
@@ -97,7 +105,10 @@
 					numberFormat.symLoc = symLoc;
 				}
 			}
-			
+         
+         if (opts.emptyAsZero && numValue=='' ) {
+            numValue='0';
+         }
 			return numValue;
 		}
 		
@@ -135,7 +146,7 @@
 			
 			for(i = 0; i < fields.length; i++) {
 				field = fields[i];
-				fieldValue = $(':input[name="' + field + '"]', ctx).val();
+				fieldValue = $(getFieldSelector(field), ctx).val();
 				numValue = numCleanse(fieldValue, numberFormat);
 				if (numValue.length == 0) {
 					result.val('').change();
@@ -161,6 +172,13 @@
 				if (numberFormat.symLoc == 0) resultValue = numberFormat.sym + resultValue;
 				else resultValue = resultValue + numberFormat.sym;
 			
+         if (opts.smartIntegers) {
+            resultValue=resultValue.replace(/[\,\.]0+$/,'');
+         }
+         if ($.isFunction(opts.onShowResult)) {
+            resultValue=opts.onShowResult.call(this,result,resultValue);
+         }
+         
 			result.val(resultValue);
 			if (opts.chainFire) result.change();
 		};
@@ -301,11 +319,12 @@
 		*/
 		var setup = function(vals) {
 			opts = $.extend({}, $.fn.jAutoCalc.defaults);
-			
 			for(i = 0; i < vals.length; i++) {
 				if (typeof vals[i] === 'object')
 					opts = $.extend(opts, vals[i]);
 			}
+         funcs = $.extend(funcs, opts.funcs);
+         vars = $.extend(vars, opts.vars);
 		}
 		
 		/*
@@ -315,6 +334,7 @@
 		var methods  = {
 			init: function() {
 				return this.each(function() {
+               var sel;
 					$ctx = $(this);
 					$('[' + opts.attribute + ']:not([_jac])', $ctx).each(function() {
 						$this = $(this);
@@ -322,7 +342,7 @@
 						fields = findFields(eq);
 						if (fields.length == 0) return;
 						for(i = 0; i < fields.length; i++)
-							if ($(':input[name="' + fields[i] + '"]', $ctx).length == 0)
+							if ($(getFieldSelector(fields[i]), $ctx).length == 0)
 								return;
 						field = '';
 						name = $this.attr('name');
@@ -330,13 +350,13 @@
 						if (opts.keyEventsFire) fireEvents += ' keyup.jautocalc keydown.jautocalc keypress.jautocalc';
 						for(i = 0; i < fields.length; i++) {
 							field = fields[i];
-							$(':input[name="' + field + '"]', $ctx).bind(fireEvents, { equation: eq, equationFields: fields, result: $this, context: $ctx }, function(e) {
+							$(getFieldSelector(field), $ctx).bind(fireEvents, { equation: eq, equationFields: fields, result: $this, context: $ctx }, function(e) {
 								doCalc(e.data.equation, e.data.equationFields, e.data.result, e.data.context);
 							});
 						}
 						if (opts.readOnlyResults) $this.attr('readonly', true);
 						$this.attr('_jac', '_jac');
-						if (opts.initFire) $(':input[name="' + fields[0] + '"]', $ctx).change();
+						if (opts.initFire) $(getFieldSelector(fields[0]), $ctx).change();
 					});
 				});
 			},
@@ -351,7 +371,7 @@
 						field = '';
 						for(i = 0; i < fields.length; i++) {
 							field = fields[i];
-							$(':input[name="' + field + '"]', $ctx).unbind('.jautocalc');
+							$(getFieldSelector(field), $ctx).unbind('.jautocalc');
 						}
 						if (opts.readOnlyResults) $this.removeAttr('readonly');
 						$this.removeAttr('_jac');
@@ -378,6 +398,11 @@
 		chainFire: true, 				// should the plugin fire on the result field when a result is calculated?  useful if the result field is a value in another equation
 		keyEventsFire: false,			// should the plugin show "insta-calculations" everytime keys are pressed in a value field?  by default, equation is only run on focus/blur
 		readOnlyResults: true,			// should the plugin mark the result field(s) as read-only and un-editable by the user?
-		showParseError: true			// should the parser show the error as an alert box?  useful for debugging/testing
+		showParseError: true,			// should the parser show the error as an alert box?  useful for debugging/testing
+      emptyAsZero: false,             // empty values are treated as zero
+      smartIntegers: false,           // numbers like 123.0000 displayed as 123
+      onShowResult: null,             // function (el,value) - allows to change value, which will be assigned to tl
+      funcs: {},                       // register user defined functions
+      vars: {}                       // user defined vars
 	};
 })(jQuery);
