@@ -11,7 +11,7 @@ Plugin to automate and simplify "on-the-fly" calculations.  The simplest use is 
 * It can handle add, subtract, multiply, divide, and power (as **) in the proper order of operations.  It will respect parentheses.
 * It can handle negative numbers and decimal numbers.
 * If a calculation value field has no value yet, the result field is set to blank.
-* when the result is calculated, the result field's change event is fired.  This is so calculations can be changed together.  In a shopping cart example, the grand total calculation relies on the subtotal calculation which relies on the sum of the line totals which rely on the quantity and amount fields.
+* when the result is calculated, the result field's change event is fired.  This is so calculations can be chained together.  In a shopping cart example, the grand total calculation relies on the subtotal calculation which relies on the sum of the line totals which rely on the quantity and amount fields.
 * It will try to figure out what the currency symbol, thousand separator, and decimal separator are and, if found, reuse them in the result field.  By default, if it can't figure out the symbols it will use comma for thousands, period for decimal, and no currency symbol.
 
 ## Options
@@ -96,4 +96,4 @@ Plugin to automate and simplify "on-the-fly" calculations.  The simplest use is 
 	</table>
 </form>
 
-See the working example at http://sauerc.github.com/jAutoCalc/sample.html
+See the working example at http://c17r.github.com/jAutoCalc/sample.html
