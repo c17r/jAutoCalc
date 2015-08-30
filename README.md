@@ -96,4 +96,4 @@ Plugin to automate and simplify "on-the-fly" calculations.  The simplest use is 
 	</table>
 </form>
 
-See the working example at http://c17r.github.com/jAutoCalc/sample.html
+See the working example at http://c17r.github.io/jAutoCalc/sample.html
