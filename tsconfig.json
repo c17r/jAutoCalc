@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "dist",
+        "module": "es2015",
+        "target": "es2015",
+        "moduleResolution": "node",
+        "allowJs": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "removeComments": true,
+        "sourceMap": true,
+        "allowSyntheticDefaultImports": true
+    }
+    ,
+    "exclude": [
+        "webpack.config.js",
+        "dist",
+        "old.js"
+    ]
+}
