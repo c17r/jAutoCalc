@@ -2,12 +2,31 @@
 
 Plugin to automate and simplify "on-the-fly" calculations.  The simplest use is to set the jsAutoCalc="" attribute on a input text tag and call `$("*").jAutoCalc();`
 
+## Installation
+
+`npm i -P jautocalc`
+
+Includes:
+
+- Development version with sourcemaps: 
+	- `dist/jautocalc.js` - 24KB
+	- `dist/jautocalc.js.map`
+- Minimized production version: 
+	- `dist/jautocalc.min.js` - 8KB
+
 ## Features
 
 * The calculation is ran when one of the value fields gains or loses focus or when the result field is changed.  Each calculation is also ran once when the page is first loaded in case all the value fields come from the database.
 * Field names are defined with braces, i.e. "{tax_amount}".
+* Field names can be jquery selectors.
 * Whitespace in the calculation is ignored.
-* When multiple fields have the same name aggregate functions may be used.  The plugin supports SUM, AVG, MIN, MAX, and COUNT.
+* When multiple fields have the same name aggregate functions may be used.  The plugin supports:
+	* SUM
+	* AVG
+	* MIN
+	* MAX
+	* COUNT - counts all fields
+	* COUNTNOTEMPTY - counts all non-empty fields
 * It can handle add, subtract, multiply, divide, and power (as **) in the proper order of operations.  It will respect parentheses.
 * It can handle negative numbers and decimal numbers.
 * If a calculation value field has no value yet, the result field is set to blank.
@@ -25,6 +44,11 @@ Plugin to automate and simplify "on-the-fly" calculations.  The simplest use is 
 * keyEventsFire (boolean: default is `false`): Should the plugin do "instant-calculations" everytime keys are pressed in a value field?  By default, calculations are fired when focus is entered or lost on a value field.
 * readOnlyResults (boolean: default is `true`): Should the plugin mark the result field(s) as read-only and be un-editable by the user?
 * showParseError (boolean: default is `true`): Should the plugin show the parser errors as an alert box?  Useful for debugging/testing.
+* emptyAsZero (boolean: default is `false`): empty values are treated as zero.
+* smartIntegers (boolean: default is `false`): numbers like 123.000 treated as 123.
+* onShowResult (function(el, value): default is `null`): called just before updating element with result.
+* funcs (dictionary<string, IFunction>: default is `null`): user-defined functions.
+* vars (dictionary<string, number>: default is `null`): user-defined constants.
 
 ## Working Example
 
@@ -35,7 +59,7 @@ Plugin to automate and simplify "on-the-fly" calculations.  The simplest use is 
     	$(document).ready(function() {
     		$('form[name=cart] tr[name=line_items]').jAutoCalc({keyEventsFire: true, decimalPlaces: 2});
     		$('form[name=cart]').jAutoCalc({decimalPlaces: 2});
-    		
+
     	});
     //-->
     </script>
