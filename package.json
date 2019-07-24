@@ -6,7 +6,6 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack",
     "watch": "./node_modules/.bin/webpack --watch",
-
     "prepublishOnly": "npm run build"
   },
   "repository": {
@@ -31,11 +30,11 @@
   "homepage": "https://github.com/c17r/jAutoCalc#readme",
   "dependencies": {},
   "devDependencies": {
-    "@types/jquery": "^3.3.4",
-    "copy-webpack-plugin": "^4.5.2",
-    "ts-loader": "^4.4.2",
-    "typescript": "^2.9.2",
-    "webpack": "^4.15.1",
-    "webpack-cli": "^3.0.8"
+    "@types/jquery": "^3.3.30",
+    "copy-webpack-plugin": "^5.0.3",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.3",
+    "webpack": "^4.37.0",
+    "webpack-cli": "^3.3.6"
   }
 }
