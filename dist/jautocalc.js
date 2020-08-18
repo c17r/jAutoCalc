@@ -195,15 +195,14 @@ function autoCalc(eq, fields, result, ctx, opts, vars, funcs) {
         sym: '',
         symLoc: -1
     };
-    for (const func in funcs) {
-        const f = funcs[func];
+    $.each($.extend({}, funcs), function (func, f) {
         const r = new RegExp(f.rgx, 'gi');
         let m;
         while ((m = r.exec(eq)) != null) {
             const v = f.exec(m[1], ctx, opts, numberFormat);
             eq = eq.replace(new RegExp(f.rgx, 'gi'), v);
         }
-    }
+    });
     for (let i = 0; i < fields.length; i++) {
         const field = fields[i];
         const fieldValue = $(Object(_utils__WEBPACK_IMPORTED_MODULE_1__["getFieldSelector"])(field), ctx).val();

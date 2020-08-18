@@ -1,5 +1,6 @@
 1.2.1 - 17-Aug-2020
 - If the calculation is fired but the new value is the same as the current, don't unnecessarily execute chainFire
+- Fix IE11 compatibility
 
 1.2.0 - 11-Jul-2018
 - Broken up into separate files, webpack to package

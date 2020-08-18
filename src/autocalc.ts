@@ -24,8 +24,7 @@ export function autoCalc(eq: string, fields: string[], result: JQuery, ctx: JQue
         symLoc: -1
     };
 
-    for (const func in funcs) {
-        const f = funcs[func];
+    $.each($.extend({}, funcs), function(func, f) {
         const r = new RegExp(f.rgx, 'gi');
         let m: RegExpMatchArray;
 
@@ -33,7 +32,7 @@ export function autoCalc(eq: string, fields: string[], result: JQuery, ctx: JQue
             const v = f.exec(m[1], ctx, opts, numberFormat);
             eq = eq.replace(new RegExp(f.rgx, 'gi'), v);
         }
-    }
+    });
 
     for (let i = 0; i < fields.length; i++) {
         const field = fields[i];
