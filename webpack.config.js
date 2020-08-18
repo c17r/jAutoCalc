@@ -37,9 +37,11 @@ const common = {
     filename: 'jautocalc.js'
   },
   plugins: [
-    new CopyWebpackPlugin([
-      { from: 'src/typings.d.ts', to: 'typings.d.ts' }
-    ])
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/typings.d.ts', to: 'typings.d.ts' }
+      ]
+    })
   ]
 };
 

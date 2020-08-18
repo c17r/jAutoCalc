@@ -251,7 +251,11 @@ function autoCalc(eq, fields, result, ctx, opts, vars, funcs) {
     }
     result.val(resultValue);
     if (opts.chainFire) {
-        result.change();
+        const current = result.data('current');
+        if (current === undefined || current !== resultValue) {
+            result.data('current', resultValue);
+            result.change();
+        }
     }
 }
 
