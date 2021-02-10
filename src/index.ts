@@ -1,6 +1,6 @@
 /*
     jAutoCalc.js
-    Copyright (c) 2010 3StorySoftware, LLC
+    Copyright (c) 2010 Christian Sauer
     see LICENSE for details
 */
 import $ from 'jquery';
