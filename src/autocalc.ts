@@ -37,11 +37,19 @@ export function autoCalc(eq: string, fields: string[], result: JQuery, ctx: JQue
     for (let i = 0; i < fields.length; i++) {
         const field = fields[i];
         const fieldValue = $(getFieldSelector(field), ctx).val();
+
         const numValue = numCleanse(fieldValue, opts, numberFormat);
         if (numValue.length == 0) {
             result.val('').trigger("change");
             return;
         }
+
+        const parsedValue = parse(numValue, {showParseError: false});
+        if (parsedValue == null) {
+			result.val('').trigger("change");
+			return;
+		}
+
         eq = eq.replace(new RegExp('{' + field + '}', 'g'), numValue);
     }
     eq = eq.replace(/ /g, '');
