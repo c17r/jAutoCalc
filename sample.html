@@ -1,10 +1,10 @@
 <html>
 	<head>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-		<script type="text/javascript" src="http://rawgit.com/c17r/jAutoCalc/master/jAutoCalc.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/c17r/jautocalc/dist/jautocalc.min.js"></script>
 		<script type="text/javascript">
 		<!--
-			$(document).ready(function() {
+			$(function() {
 
 				function autoCalcSetup() {
 					$('form[name=cart]').jAutoCalc('destroy');
@@ -43,7 +43,7 @@
 	</head>
 	<body>
 		<form name="cart">
-			<table name="cart">
+			<table>
 				<tr>
 					<th></th>
 					<th>Item</th>
@@ -52,7 +52,7 @@
 					<th>&nbsp;</th>
 					<th>Item Total</th>
 				</tr>
-				<tr name="line_items">
+				<tr>
 					<td><button name="remove">Remove</button></td>
 					<td>Stuff</td>
 					<td><input type="text" name="qty" value="1"></td>
@@ -60,7 +60,7 @@
 					<td>&nbsp;</td>
 					<td><input type="text" name="item_total" value="" jAutoCalc="{qty} * {price}"></td>
 				</tr>
-				<tr name="line_items">
+				<tr>
 					<td><button name="remove">Remove</button></td>
 					<td>More Stuff</td>
 					<td><input type="text" name="qty" value="2"></td>
@@ -68,7 +68,7 @@
 					<td>&nbsp;</td>
 					<td><input type="text" name="item_total" value="" jAutoCalc="{qty} * {price}"></td>
 				</tr>
-				<tr name="line_items">
+				<tr>
 					<td><button name="remove">Remove</button></td>
 					<td>And More Stuff</td>
 					<td><input type="text" name="qty" value="3"></td>
