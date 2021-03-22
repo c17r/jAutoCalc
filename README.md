@@ -1,6 +1,6 @@
 # jQuery AutoCalc
 
-Plugin to automate and simplify "on-the-fly" calculations.  The simplest use is to set the jsAutoCalc="" attribute on a input text tag and call `$("*").jAutoCalc();`
+Plugin to automate and simplify "on-the-fly" calculations.  The simplest use is to set the jsAutoCalc="" attribute on an input text tag and call `$("*").jAutoCalc();`
 
 ## Installation
 
@@ -16,7 +16,7 @@ Includes:
 
 ## Features
 
-* The calculation is ran when one of the value fields gains or loses focus or when the result field is changed.  Each calculation is also ran once when the page is first loaded in case all the value fields come from the database.
+* The calculation is run when one of the value fields gains or loses focus or when the result field is changed.  Each calculation is also run once when the page is first loaded in case all the value fields come from the database.
 * Field names are defined with braces, i.e. "{tax_amount}".
 * Field names can be jquery selectors.
 * Whitespace in the calculation is ignored.
@@ -31,16 +31,16 @@ Includes:
 * It can handle negative numbers and decimal numbers.
 * If a calculation value field has no value yet, the result field is set to blank.
 * when the result is calculated, the result field's change event is fired.  This is so calculations can be chained together.  In a shopping cart example, the grand total calculation relies on the subtotal calculation which relies on the sum of the line totals which rely on the quantity and amount fields.
-* It will try to figure out what the currency symbol, thousand separator, and decimal separator are and, if found, reuse them in the result field.  By default, if it can't figure out the symbols it will use comma for thousands, period for decimal, and no currency symbol.
+* It will try to figure out what the currency symbol, thousands separator, and decimal separator are and, if found, reuse them in the result field.  By default, if it can't figure out the symbols it will use comma for thousands, period for decimal, and no currency symbol.
 
 ## Options
 
-* attribute (string; default is `'jAutoCalc'`): The name of the attribute to look for to setup the auto calculation.
+* attribute (string; default is `'jAutoCalc'`): The name of the attribute to look for to set up the auto calculation.
 * thousandOpts (string array; default is `[',', '.', ' ']`): Possible options to use as the thousand separator.  Will use the first one it finds in the value fields to format the result field.  If you know this will always be the same, set the option to a single element array.
 * decimalOpts (string array: default is `['.', ',']`): Possible options to use as the decimal separator.  Will use the first one it finds in the value fields to format the result field.  If you know this will always be the same, set the option to a single element array.
-* decimalPlaces (number; default is `-1`): By default the plugin follows the rules for significant digits (the result is as significant as the least significant value).  There are cases when you might want to override this behavior, i.e. shopping cart where the item quantity will be whole numbers but the item total should contain decimals.
+* decimalPlaces (number; default is `-1`): By default the plugin follows the rules for significant digits (the result is as significant as the least significant value).  There are cases when you might want to override this behavior, i.e. shopping cart where the item quantity will be whole numbers, but the item total should contain decimals.
 * initFire (boolean; default is `true`): After configuring the value and results fields involved in a calculation, should the calculation be fired right away?  Useful if the value fields are pre-filled from some other source, e.g. database.
-* chainFire (boolean: default is `true`): After calculating the result field value should the the field be flagged as changed to potentially fire other calculations?
+* chainFire (boolean: default is `true`): After calculating the result field value should the field be flagged as changed to potentially fire other calculations?
 * keyEventsFire (boolean: default is `false`): Should the plugin do "instant-calculations" everytime keys are pressed in a value field?  By default, calculations are fired when focus is entered or lost on a value field.
 * readOnlyResults (boolean: default is `true`): Should the plugin mark the result field(s) as read-only and be un-editable by the user?
 * showParseError (boolean: default is `true`): Should the plugin show the parser errors as an alert box?  Useful for debugging/testing.
@@ -52,6 +52,7 @@ Includes:
 
 ## Working Example
 
+```html
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="http://github.com/sauerc/jAutoCalc/raw/master/jAutoCalc.js"></script>
     <script type="text/javascript">
@@ -119,5 +120,6 @@ Includes:
 		</tr>
 	</table>
 </form>
+```
 
 See the working example at http://c17r.github.io/jAutoCalc/sample.html
