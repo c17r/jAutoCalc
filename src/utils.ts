@@ -16,7 +16,7 @@ export function findFields(eq: string): string[] {
     }
 
     return fields;
-};
+}
 
 /**
  *
@@ -28,11 +28,12 @@ export function getFieldSelector(field: string): string {
         return ':input[name="' + field + '"]';
     }
     return field;
-};
+}
 
 /**
  *
  * @param value {string | number | string[]} field value from input control
+ * @param opts {IOptions} options to decide decimal and thousands separators
  * @param numberFormat {INumberFormat} formatted values to be used later
  */
 export function numCleanse(value: string | number | string[], opts: IOptions, numberFormat: INumberFormat): string {
@@ -100,7 +101,7 @@ export function numCleanse(value: string | number | string[], opts: IOptions, nu
         numValue = '0';
     }
     return numValue;
-};
+}
 
 /*
     Takes a numeric value, "fixes" it to the specified number of decimal places, and then formats for typical
@@ -116,4 +117,4 @@ export function numberFix(num: number, decPlaces: number): string {
         x1 = x1.replace(rgx, '$1' + ',' + '$2');
     }
     return x1 + x2;
-};
+}

@@ -1,10 +1,38 @@
+const express = require("express");
+const { readFileSync } = require("fs");
+const path = require("path");
+
+const app = express();
+const port = 8000;
+
+const mix = (filename) => {
+	const mixPath = path.resolve(__dirname, "./dist/mix-manifest.json");
+
+    const entries = JSON.parse(readFileSync(mixPath, "utf-8"));
+	const entry = entries[filename];
+	if (!entry) {
+		throw new Error(`${filename} not found in mix manifest.`);
+	}
+
+	const hotPath = path.resolve(__dirname, "./dist/hot");
+	try {
+		const hotUrl = readFileSync(hotPath, "utf-8");
+		return `${hotUrl.trim()}${entry}`;
+	} catch(err) {
+		return entry;
+	}
+};
+
+app
+	.get('/', (req, res) => {
+		res.send(`
 <html>
     <head>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script type="text/javascript" src="file:///Users/christian/wc/home/source/jautocalc/dist/jautocalc.js"></script>
+        <script type="text/javascript" src="${mix('/jautocalc.js')}"></script>
         <script type="text/javascript">
         <!--
-            $(document).ready(function() {
+            $(function() {
 
                 function autoCalcSetup() {
                     $('form[name=cart]').jAutoCalc('destroy');
@@ -14,7 +42,7 @@
                 autoCalcSetup();
 
 
-                $('button[name=remove]').click(function(e) {
+                $('button[name=remove]').on("click", function(e) {
                     e.preventDefault();
 
                     var form = $(this).parents('form')
@@ -23,7 +51,7 @@
 
                 });
 
-                $('button[name=add]').click(function(e) {
+                $('button[name=add]').on("click", function(e) {
                     e.preventDefault();
 
                     var $table = $(this).parents('table');
@@ -107,3 +135,12 @@
         </form>
     </body>
 </html>
+
+	`);
+	})
+	.use(express.static('dist'))
+	;
+
+app.listen(port, () => {
+	console.log(`Listening on http://localhost:${port}`);
+});

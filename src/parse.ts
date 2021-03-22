@@ -4,7 +4,6 @@
         * http://stackoverflow.com/questions/28256/equation-expression-parser-with-precedence
         * http://users.telenet.be/bartl/expressionParser/expressionParser.html
 */
-import $ from 'jquery';
 import { IData, IOperation, IOperations, IVars, IOptions } from './interfaces';
 
 const ops: IOperations = {
@@ -107,11 +106,11 @@ function parseVal(r: IData): number {
             throw new Error('valueNotParsed');
         }
     }
-};
+}
 
 function negate(value: number): number {
     return -value;
-};
+}
 
 function parseOp(r: IData) {
     if (r.string.substr(r.offset, 2) == '**') {
@@ -122,7 +121,7 @@ function parseOp(r: IData) {
         return ops[r.string.substr(r.offset++, 1)];
     }
     return null;
-};
+}
 
 function parseExpr(r: IData) {
     const stack: IOperation[] = [{
@@ -155,7 +154,7 @@ function parseExpr(r: IData) {
         });
         value = parseVal(r); // value on the right
     }
-};
+}
 
 export function parse(str: string, opts: IOptions): number | null {
     const r: IData = {
@@ -175,4 +174,4 @@ export function parse(str: string, opts: IOptions): number | null {
         }
         return null;
     }
-};
+}

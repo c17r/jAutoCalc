@@ -16,7 +16,8 @@
     ,
     "exclude": [
         "webpack.config.js",
+        "webpack.mix.js",
+        "dev-server.js",
         "dist",
-        "old.js"
     ]
 }

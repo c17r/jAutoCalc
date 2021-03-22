@@ -7,7 +7,7 @@ interface JAutoCalcOptions {
     attribute?: string, // name of the attribute on the result field
     thousandOpts?: string[], // possible options for thousand separator.  if you know it's always going to be the same, change to a single item array
     decimalOpts?: string[], // possible options for decimal separator.  if you know it's always going to be the same, change to a single item array
-    decimalPlaces?: number, // by default the plugin follows the rules of signigicant digits.  you may want to override with a fixed number, e.g. shopping cart where item quantity will be whole numbers
+    decimalPlaces?: number, // by default the plugin follows the rules of significant digits.  you may want to override with a fixed number, e.g. shopping cart where item quantity will be whole numbers
     initFire?: boolean, // should the plugin fire during the setup phase?  useful if the values of the equation are pre-filled from another source
     chainFire?: boolean, // should the plugin fire on the result field when a result is calculated?  useful if the result field is a value in another equation
     keyEventsFire?: boolean, // should the plugin show "insta-calculations" everytime keys are pressed in a value field?  by default, equation is only run on focus/blur

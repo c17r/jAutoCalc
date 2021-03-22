@@ -32,7 +32,7 @@ export function init(jq: JQuery, opts: IOptions, vars: IVars, funcs: IFunctions)
 
             for (let i = 0; i < fields.length; i++) {
                 const field = fields[i];
-                $(getFieldSelector(field), $ctx).bind(fireEvents, {
+                $(getFieldSelector(field), $ctx).on(fireEvents, {
                     equation: eq,
                     equationFields: fields,
                     result: $this,
@@ -49,7 +49,7 @@ export function init(jq: JQuery, opts: IOptions, vars: IVars, funcs: IFunctions)
             }
             $this.attr(TAG, TAG);
             if (opts.initFire) {
-                $(getFieldSelector(fields[0]), $ctx).change();
+                $(getFieldSelector(fields[0]), $ctx).trigger("change");
             }
         });
     });
@@ -67,7 +67,7 @@ export function destroy(jq: JQuery, opts: IOptions): JQuery {
             }
             for (let i = 0; i < fields.length; i++) {
                 const field = fields[i];
-                $(getFieldSelector(field), $ctx).unbind('.' + NAMESPACE);
+                $(getFieldSelector(field), $ctx).off('.' + NAMESPACE);
             }
             if (opts.readOnlyResults) {
                 $this.removeAttr('readonly');

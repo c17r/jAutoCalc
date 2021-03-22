@@ -39,7 +39,7 @@ export function autoCalc(eq: string, fields: string[], result: JQuery, ctx: JQue
         const fieldValue = $(getFieldSelector(field), ctx).val();
         const numValue = numCleanse(fieldValue, opts, numberFormat);
         if (numValue.length == 0) {
-            result.val('').change();
+            result.val('').trigger("change");
             return;
         }
         eq = eq.replace(new RegExp('{' + field + '}', 'g'), numValue);
@@ -78,7 +78,7 @@ export function autoCalc(eq: string, fields: string[], result: JQuery, ctx: JQue
     if (opts.smartIntegers) {
         resultValue = resultValue.replace(/[\,\.]0+$/, '');
     }
-    if ($.isFunction(opts.onShowResult)) {
+    if (typeof opts.onShowResult === "function") {
         resultValue = opts.onShowResult.call(result, resultValue);
     }
 
@@ -88,7 +88,7 @@ export function autoCalc(eq: string, fields: string[], result: JQuery, ctx: JQue
 
         if (current === undefined || current !== resultValue) {
             result.data('current', resultValue);
-            result.change();
+            result.trigger("change");
         }
     }
 }
