@@ -35,14 +35,14 @@ app
             $(function() {
 
                 function autoCalcSetup() {
-                    $('form[name=cart]').jAutoCalc('destroy');
-                    $('form[name=cart] tr[name=line_items]').jAutoCalc({keyEventsFire: true, decimalPlaces: 2, emptyAsZero: true});
-                    $('form[name=cart]').jAutoCalc({decimalPlaces: 2});
+                    $('form#cart').jAutoCalc('destroy');
+                    $('form#cart tr.line_items').jAutoCalc({keyEventsFire: true, decimalPlaces: 2, emptyAsZero: true});
+                    $('form#cart').jAutoCalc({decimalPlaces: 2});
                 }
                 autoCalcSetup();
 
 
-                $('button[name=remove]').on("click", function(e) {
+                $('button.row-remove').on("click", function(e) {
                     e.preventDefault();
 
                     var form = $(this).parents('form')
@@ -51,11 +51,11 @@ app
 
                 });
 
-                $('button[name=add]').on("click", function(e) {
+                $('button.row-add').on("click", function(e) {
                     e.preventDefault();
 
                     var $table = $(this).parents('table');
-                    var $top = $table.find('tr[name=line_items]').first();
+                    var $top = $table.find('tr.line_items').first();
                     var $new = $top.clone(true);
 
                     $new.jAutoCalc('destroy');
@@ -70,7 +70,7 @@ app
         </script>
     </head>
     <body>
-        <form name="cart">
+        <form id="cart">
             <table name="cart">
                 <tr>
                     <th></th>
@@ -80,24 +80,24 @@ app
                     <th>&nbsp;</th>
                     <th>Item Total</th>
                 </tr>
-                <tr name="line_items">
-                    <td><button name="remove">Remove</button></td>
+                <tr class="line_items">
+                    <td><button class="row-remove">Remove</button></td>
                     <td>Stuff</td>
                     <td><input type="text" name="qty" value="1"></td>
                     <td><input type="text" name="price" value="9.99"></td>
                     <td>&nbsp;</td>
                     <td><input type="text" name="item_total" value="" jAutoCalc="{qty} * {price}"></td>
                 </tr>
-                <tr name="line_items">
-                    <td><button name="remove">Remove</button></td>
+                <tr class="line_items">
+                    <td><button class="remove">Remove</button></td>
                     <td>More Stuff</td>
                     <td><input type="text" name="qty" value="2"></td>
                     <td><input type="text" name="price" value="12.50"></td>
                     <td>&nbsp;</td>
                     <td><input type="text" name="item_total" value="" jAutoCalc="{qty} * {price}"></td>
                 </tr>
-                <tr name="line_items">
-                    <td><button name="remove">Remove</button></td>
+                <tr class="line_items">
+                    <td><button class="remove">Remove</button></td>
                     <td>And More Stuff</td>
                     <td><input type="text" name="qty" value="3"></td>
                     <td><input type="text" name="price" value="99.99"></td>
@@ -129,7 +129,7 @@ app
                     <td><input type="text" name="grand_total" value="" jAutoCalc="{sub_total} + {tax_total}"></td>
                 </tr>
                 <tr>
-                    <td colspan="99"><button name="add">Add Row</button></td>
+                    <td colspan="99"><button class="row-add">Add Row</button></td>
                 </tr>
             </table>
         </form>
