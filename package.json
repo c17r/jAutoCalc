@@ -1,6 +1,6 @@
 {
   "name": "jautocalc",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "jQuery plugin for doing calculations",
   "main": "jAutoCalc.js",
   "scripts": {

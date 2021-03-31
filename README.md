@@ -17,7 +17,7 @@ Includes:
 ## Features
 
 * The calculation is run when one of the value fields gains or loses focus or when the result field is changed.  Each calculation is also run once when the page is first loaded in case all the value fields come from the database.
-* Field names are defined with braces, i.e. "{tax_amount}".
+* Field names are defined with braces, i.e. "{tax_amount}". If the field name is prefaced with "!" e.g. "{!tax_amount}" then the value will be used in the equation but it will ignore changes to that field for that equation only.
 * Field names can be jquery selectors.
 * Whitespace in the calculation is ignored.
 * When multiple fields have the same name aggregate functions may be used.  The plugin supports:

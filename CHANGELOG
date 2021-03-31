@@ -1,3 +1,9 @@
+1.4.1 - 31-Mar-2021
+- update CHANGELOG and README
+
+1.4.0 - 31-Mar-2021
+- if a field name in an equation is prefaced with "!" e.g "{total} / {!qty}" the value of the field will still be used in the equation but a change to the field will not cause a recalculation.
+
 1.3.2 - 31-Mar-2021
 - Fix where not all jQuery events were namespaced properly
 
