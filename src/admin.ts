@@ -28,7 +28,10 @@ export function init(jq: JQuery, opts: IOptions, vars: IVars, funcs: IFunctions)
                 EVENTS += ' keyup keydown keypress';
             }
 
-            const fireEvents = EVENTS.split(' ').join('.' + NAMESPACE + ' ');
+            const fireEvents = EVENTS
+				.split(' ')
+				.map(w => `${w}.${NAMESPACE}`)
+				.join('.' + NAMESPACE + ' ');
 
             for (let i = 0; i < fields.length; i++) {
                 const field = fields[i];
