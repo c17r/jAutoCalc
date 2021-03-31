@@ -21,13 +21,13 @@
 - Published on NPM
 
 1.1.0 - 18-May-2013 (all from qyloxe)
-- new function: countNotempty, counts number of non empty elements
+- new function: countNotEmpty, counts number of non empty elements
 - new option: emptyAsZero, empty input values are treated as zero
 - new option: smartInteger, values 123.000 are converted to 123
 - new event: onShowResult, fired just before value change
 - new option: funcs, user defined functions
 - new option: vars, user defined variables (Pi, etc)
-- allows to select eleemnts not only by name but by jQuery selector
+- allows to select elements not only by name but by jQuery selector
 
 1.0.0 - 20-Sep-2010
 - initial release
