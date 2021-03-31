@@ -1,18 +1,28 @@
 import $ from 'jquery';
-import { INumberFormat, IOptions } from './interfaces';
+import {IField, INumberFormat, IOptions} from './interfaces';
 
 /**
  *
  * @param eq {string} equation
- * @returns {string[]} field names in equation or empty list
+ * @returns {IField[]} field names in equation or empty list
  */
-export function findFields(eq: string): string[] {
-    const fields = [];
+export function findFields(eq: string): IField[] {
+    const fields: IField[] = [];
     const r = /{([^}]+)}/gi;
     let m: RegExpMatchArray;
 
     while ((m = r.exec(eq)) != null) {
-        fields.push(m[1]);
+    	const field: IField = {
+    		eqName: m[1],
+    		fieldName: m[1],
+			reactive: true,
+		};
+
+    	if (field.fieldName[0] === '!') {
+    		field.reactive = false;
+    		field.fieldName = field.fieldName.substr(1);
+		}
+        fields.push(field);
     }
 
     return fields;

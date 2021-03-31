@@ -19,7 +19,7 @@ export function init(jq: JQuery, opts: IOptions, vars: IVars, funcs: IFunctions)
             }
 
             for (let i = 0; i < fields.length; i++) {
-                if ($(getFieldSelector(fields[i]), $ctx).length == 0) {
+                if ($(getFieldSelector(fields[i].fieldName), $ctx).length == 0) {
                     return;
                 }
             }
@@ -35,7 +35,8 @@ export function init(jq: JQuery, opts: IOptions, vars: IVars, funcs: IFunctions)
 
             for (let i = 0; i < fields.length; i++) {
                 const field = fields[i];
-                $(getFieldSelector(field), $ctx).on(fireEvents, {
+                if (field.reactive === false) continue;
+                $(getFieldSelector(field.fieldName), $ctx).on(fireEvents, {
                     equation: eq,
                     equationFields: fields,
                     result: $this,
@@ -52,7 +53,7 @@ export function init(jq: JQuery, opts: IOptions, vars: IVars, funcs: IFunctions)
             }
             $this.attr(TAG, TAG);
             if (opts.initFire) {
-                $(getFieldSelector(fields[0]), $ctx).trigger("change");
+                $(getFieldSelector(fields[0].fieldName), $ctx).trigger("change");
             }
         });
     });
@@ -70,7 +71,7 @@ export function destroy(jq: JQuery, opts: IOptions): JQuery {
             }
             for (let i = 0; i < fields.length; i++) {
                 const field = fields[i];
-                $(getFieldSelector(field), $ctx).off('.' + NAMESPACE);
+                $(getFieldSelector(field.fieldName), $ctx).off('.' + NAMESPACE);
             }
             if (opts.readOnlyResults) {
                 $this.removeAttr('readonly');

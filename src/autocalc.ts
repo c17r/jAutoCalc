@@ -1,5 +1,5 @@
 import { parse } from './parse';
-import { INumberFormat, IOptions, IVars, IFunctions } from './interfaces';
+import {INumberFormat, IOptions, IVars, IFunctions, IField} from './interfaces';
 import { getFieldSelector, numCleanse, numberFix } from './utils';
 
 /*
@@ -14,7 +14,7 @@ import { getFieldSelector, numCleanse, numberFix } from './utils';
         * update result field with formatted result value
         * potentially trigger chain reaction calculations if necessary
 */
-export function autoCalc(eq: string, fields: string[], result: JQuery, ctx: JQuery, opts: IOptions, vars: IVars, funcs: IFunctions) {
+export function autoCalc(eq: string, fields: IField[], result: JQuery, ctx: JQuery, opts: IOptions, vars: IVars, funcs: IFunctions) {
     let resultValue = '';
     const numberFormat: INumberFormat = {
         dec: '',
@@ -36,7 +36,7 @@ export function autoCalc(eq: string, fields: string[], result: JQuery, ctx: JQue
 
     for (let i = 0; i < fields.length; i++) {
         const field = fields[i];
-        const fieldValue = $(getFieldSelector(field), ctx).val();
+        const fieldValue = $(getFieldSelector(field.fieldName), ctx).val();
 
         const numValue = numCleanse(fieldValue, opts, numberFormat);
         if (numValue.length == 0) {
@@ -50,7 +50,7 @@ export function autoCalc(eq: string, fields: string[], result: JQuery, ctx: JQue
 			return;
 		}
 
-        eq = eq.replace(new RegExp('{' + field + '}', 'g'), numValue);
+        eq = eq.replace(new RegExp('{' + field.eqName + '}', 'g'), numValue);
     }
     eq = eq.replace(/ /g, '');
 

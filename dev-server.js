@@ -64,6 +64,13 @@ app
                     autoCalcSetup();
 
                 });
+                
+                $('table#nonreactive tbody tr').jAutoCalc({
+					initFire: false,
+					readOnlyResults: false,
+					chainFire: true,
+					decimalPlaces: 2
+                });
 
             });
         //-->
@@ -133,6 +140,21 @@ app
                 </tr>
             </table>
         </form>
+        <hr>
+		<table id="nonreactive">
+			<thead>
+				<th>Quantity</th>
+				<th>Price</th>
+				<th>Total</th>
+			</thead>
+			<tbody>
+				  <tr>
+					<td><input name="qty" value="2" /></td>
+					<td><input name="price" value="3" jAutoCalc="{total} / {!qty}" /></td>
+					<td><input name="total" value="6" jAutoCalc="{qty} * {price}" /></td>
+				  </tr>
+			</tbody>
+		</table>
     </body>
 </html>
 

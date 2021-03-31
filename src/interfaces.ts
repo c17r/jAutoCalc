@@ -1,4 +1,10 @@
 
+export interface IField {
+	eqName: string;
+	fieldName: string;
+	reactive: boolean;
+}
+
 export interface IFunctions {
     [func: string]: IFunction;
 }
